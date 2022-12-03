@@ -1,13 +1,12 @@
 import 'dart:io';
 
-//import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:olx_app/DialogBox/errorDialog.dart';
+import 'package:olx_app/DialogBox/loadingDialog.dart';
 import 'package:olx_app/Login/login_screen.dart';
-// import 'package:olx_app/DialogBox/errorDialog.dart';
-// import 'package:olx_app/DialogBox/loadingDialog.dart';
-// import 'package:olx_app/Login/login_screen.dart';
 import 'package:olx_app/Signup/components/background.dart';
 import 'package:olx_app/Welcome/welcome_screen.dart';
 import 'package:olx_app/Widgets/already_have_an_account_acheck.dart';
@@ -15,9 +14,9 @@ import 'package:olx_app/Widgets/rounded_button.dart';
 import 'package:olx_app/Widgets/rounded_input_field.dart';
 import 'package:olx_app/Widgets/rounded_password_field.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebaseStorage;
-// import 'package:olx_app/globalVar.dart';
-//
-// import '../../HomeScreen.dart';
+import 'package:olx_app/globalVar.dart';
+
+import '../../HomeScreen.dart';
 
 
 class SignupBody extends StatefulWidget {
@@ -37,7 +36,7 @@ class _SignupBodyState extends State<SignupBody> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
 
- // final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
 
   chooseImage() async {
@@ -49,76 +48,76 @@ class _SignupBodyState extends State<SignupBody> {
     });
   }
 
-  // upload() async{
-  //   showDialog(
-  //       context: context,
-  //       builder: (_){
-  //         return LoadingAlertDialog();
-  //       });
-  //
-  //   String fileName = DateTime
-  //       .now()
-  //       .millisecondsSinceEpoch
-  //       .toString();
-  //
-  //   firebaseStorage.Reference reference =
-  //   firebaseStorage.FirebaseStorage.instance.ref().child(fileName);
-  //   firebaseStorage.UploadTask uploadTask = reference.putFile(_image);
-  //   firebaseStorage.TaskSnapshot storageTaskSnapshot = await uploadTask.whenComplete(() {
-  //
-  //   });
-  //
-  //   await storageTaskSnapshot.ref.getDownloadURL().then((url){
-  //     userPhotoUrl = url;
-  //     print(userPhotoUrl);
-  //     _register();
-  //   });
-  //
-  // }
-  //
-  // void _register() async{
-  //   User currentUser;
-  //
-  //   await _auth.createUserWithEmailAndPassword(
-  //       email: _emailController.text.trim(),
-  //       password: _passwordController.text.trim()
-  //   ).then((auth){
-  //     currentUser = auth.user;
-  //     userId = currentUser.uid;
-  //     userEmail = currentUser.email;
-  //     getUserName = _nameController.text.trim();
-  //
-  //     saveUserData();
-  //
-  //   }).catchError((error){
-  //     Navigator.pop(context);
-  //     showDialog(context: context, builder: (con){
-  //       return ErrorAlertDialog(
-  //         message: error.message.toString(),
-  //       );
-  //     });
-  //   });
-  //
-  //   if(currentUser != null){
-  //     Route newRoute = MaterialPageRoute(builder: (context) => HomeScreen());
-  //     Navigator.pushReplacement(context, newRoute);
-  //   }
-  //
-  // }
-  //
-  // void saveUserData(){
-  //   Map<String, dynamic> userData = {
-  //     'userName': _nameController.text.trim(),
-  //     'uId': userId,
-  //     'userNumber': _phoneController.text.trim(),
-  //     'imgPro': userPhotoUrl,
-  //     'time': DateTime.now(),
-  //     'status': "approved",
-  //   };
-  //
-  //   FirebaseFirestore.instance.collection('users').doc(userId).set(userData);
-  //
-  // }
+  upload() async{
+    showDialog(
+        context: context,
+        builder: (_){
+          return LoadingAlertDialog();
+        });
+
+    String fileName = DateTime
+        .now()
+        .millisecondsSinceEpoch
+        .toString();
+
+    firebaseStorage.Reference reference =
+    firebaseStorage.FirebaseStorage.instance.ref().child(fileName);
+    firebaseStorage.UploadTask uploadTask = reference.putFile(_image);
+    firebaseStorage.TaskSnapshot storageTaskSnapshot = await uploadTask.whenComplete(() {
+
+    });
+
+    await storageTaskSnapshot.ref.getDownloadURL().then((url){
+      userPhotoUrl = url;
+      print(userPhotoUrl);
+      _register();
+    });
+
+  }
+
+  void _register() async{
+    User currentUser;
+
+    await _auth.createUserWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim()
+    ).then((auth){
+      currentUser = auth.user;
+      userId = currentUser.uid;
+      userEmail = currentUser.email;
+      getUserName = _nameController.text.trim();
+
+      saveUserData();
+
+    }).catchError((error){
+      Navigator.pop(context);
+      showDialog(context: context, builder: (con){
+        return ErrorAlertDialog(
+          message: error.message.toString(),
+        );
+      });
+    });
+
+    if(currentUser != null){
+      Route newRoute = MaterialPageRoute(builder: (context) => HomeScreen());
+      Navigator.pushReplacement(context, newRoute);
+    }
+
+  }
+
+  void saveUserData(){
+    Map<String, dynamic> userData = {
+      'userName': _nameController.text.trim(),
+      'uId': userId,
+      'userNumber': _phoneController.text.trim(),
+      'imgPro': userPhotoUrl,
+      'time': DateTime.now(),
+      'status': "approved",
+    };
+
+    FirebaseFirestore.instance.collection('users').doc(userId).set(userData);
+
+  }
 
 
   @override
@@ -176,7 +175,7 @@ class _SignupBodyState extends State<SignupBody> {
               text: "SIGNUP",
               press: ()
               {
-                //upload();
+                upload();
               },
             ),
             SizedBox(height: _screenHeight * 0.03,),
@@ -187,7 +186,7 @@ class _SignupBodyState extends State<SignupBody> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LoginScreen() ;
+                      return LoginScreen();
                     },
                   ),
                 );
