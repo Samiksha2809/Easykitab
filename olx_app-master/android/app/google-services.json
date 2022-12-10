@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "399128756906",
+    "project_id": "easykitab-69434",
+    "storage_bucket": "easykitab-69434.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399128756906:android:a83d35ce3f95cb848506d3",
+        "android_client_info": {
+          "package_name": "com.samiksha.example.easykitab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399128756906-gsfqe59hlahho4uim2rt04o7muv5emjl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKEdm5zHlD41miIiY67HZ8dpI8haRvmow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399128756906-gsfqe59hlahho4uim2rt04o7muv5emjl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
