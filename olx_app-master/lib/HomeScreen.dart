@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:olx_app/Welcome/welcome_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:olx_app/uploadAdScreen.dart';
 
 class HomeScreen extends StatefulWidget {
 
@@ -12,8 +13,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   FirebaseAuth auth =FirebaseAuth.instance;
+
+
   @override
   Widget build(BuildContext context) {
+
+    double _screenWidth = MediaQuery.of(context).size.width,
+        _screenHeight = MediaQuery.of(context).size.height;
+
+    Widget showItemsList(){
+
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -68,6 +79,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         title: Text("Home Page"),
         centerTitle: false,
+      ),
+      body: Center(
+        child: Container(
+          width: _screenWidth,
+          child: showItemsList(),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add Post',
+        child: Icon(Icons.add),
+        onPressed: (){
+          Route newRoute =MaterialPageRoute(builder: (_) => UploadAdscreen()) ;
+          Navigator.pushReplacement(context, newRoute);
+        },
       ),
     );
   }
